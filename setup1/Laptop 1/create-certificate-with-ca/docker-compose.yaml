@@ -1,10 +1,9 @@
-version: '2'
+version: "2"
 
 networks:
-  test:
+  mainchannel:
 
 services:
-
   ca_org1:
     image: hyperledger/fabric-ca
     environment:
@@ -17,7 +16,7 @@ services:
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./fabric-ca/org1:/etc/hyperledger/fabric-ca-server
-    container_name: ca.org1.example.com
-    hostname: ca.org1.example.com
+    container_name: ca_laptop1
+    hostname: ca_laptop1
     networks:
-      - test
+      - mainchannel

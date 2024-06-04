@@ -2,10 +2,10 @@ createcertificatesForOrg1() {
   echo
   echo "Enroll the CA admin"
   echo
-  mkdir -p ../crypto-config/peerOrganizations/org1.example.com/
-  export FABRIC_CA_CLIENT_HOME=${PWD}/../crypto-config/peerOrganizations/org1.example.com/
+  mkdir -p ../crypto-config/peerOrganizations/laptop1/
+  export FABRIC_CA_CLIENT_HOME=${PWD}/../crypto-config/peerOrganizations/laptop1/
 
-  fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca.org1.example.com --tls.certfiles ${PWD}/fabric-ca/org1/tls-cert.pem
+  fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca_laptop1 --tls.certfiles ${PWD}/fabric-ca/org1/tls-cert.pem
 
   echo 'NodeOUs:
   Enable: true
@@ -20,7 +20,7 @@ createcertificatesForOrg1() {
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
     Certificate: cacerts/localhost-7054-ca-org1-example-com.pem
-    OrganizationalUnitIdentifier: orderer' >${PWD}/../crypto-config/peerOrganizations/org1.example.com/msp/config.yaml
+    OrganizationalUnitIdentifier: orderer' >${PWD}/../crypto-config/peerOrganizations/laptop1/msp/config.yaml
 
   echo
   echo "Register peer0"
