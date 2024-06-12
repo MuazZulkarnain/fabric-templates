@@ -3,6 +3,7 @@ createcertificatesForLaptop1() {
   echo "Enroll the CA admin"
   echo
   mkdir -p ../crypto-config/peerOrganizations/laptop1/
+  
   export FABRIC_CA_CLIENT_HOME=${PWD}/../crypto-config/peerOrganizations/laptop1/
 
   fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca.laptop1 --tls.certfiles ${PWD}/fabric-ca/laptop1/tls-cert.pem

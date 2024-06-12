@@ -9,40 +9,57 @@ docker system prune --all
 docker volume prune --filter all=1
 sleep 2s
 
-echo '########## create ca for laptop 1 ##########'
+echo '########## creating ca materials for Laptop 1 ##########'
 sleep 2s
 cd ./setup1/Laptop1
 sudo rm -rf crypto-config
+sleep 1s
 cd ./create-certificate-with-ca
 sudo rm -rf fabric-ca
 docker-compose up -d
 sudo chmod 777 *
+sleep 1s
 ./create-certificate-with-ca.sh
 cd ../../
 
-# echo '########## create ca for laptop 2 ##########'
-# cd ./Laptop\ 2
-# rm -rf crypto-config
-# cd ./create-certificate-with-ca
-# docker-compose up -d
-# ./create-certificate-with-ca.sh
-# cd ../../
+echo '########## creating ca materials for Laptop 2 ##########'
+sleep 2s
+cd ./Laptop2
+sudo rm -rf crypto-config
+sleep 1s
+cd ./create-certificate-with-ca
+sudo rm -rf fabric-ca
+docker-compose up -d
+sudo chmod 777 *
+sleep 1s
+./create-certificate-with-ca.sh
+cd ../../
 
-# echo '########## create ca for Pi 4 ##########'
-# cd ./Pi\ 4
-# rm -rf crypto-config
-# cd ./create-certificate-with-ca
-# docker-compose up -d
-# ./create-certificate-with-ca.sh
-# cd ../../
+echo '########## creating ca materials for Pi 4 ##########'
+sleep 2s
+cd ./Pi4
+sudo rm -rf crypto-config
+sleep 1s
+cd ./create-certificate-with-ca
+sudo rm -rf fabric-ca
+docker-compose up -d
+sudo chmod 777 *
+sleep 1s
+./create-certificate-with-ca.sh
+cd ../../
 
-# echo '########## create ca for Pi 5 ##########'
-# cd ./Pi\ 5
-# rm -rf crypto-config
-# cd ./create-certificate-with-ca
-# docker-compose up -d
-# ./create-certificate-with-ca.sh
-# cd ../../
+echo '########## creating ca materials for Pi 5 ##########'
+sleep 2s
+cd ./Pi5
+sudo rm -rf crypto-config
+sleep 1s
+cd ./create-certificate-with-ca
+sudo rm -rf fabric-ca
+docker-compose up -d
+sudo chmod 777 *
+sleep 1s
+./create-certificate-with-ca.sh
+cd ../../
 
 # echo '########## show all running containers ##########'
 # docker ps

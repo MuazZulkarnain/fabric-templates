@@ -4,7 +4,7 @@ networks:
   mainchannel:
 
 services:
-  ca_org1:
+  ca_laptop1:
     image: hyperledger/fabric-ca
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
