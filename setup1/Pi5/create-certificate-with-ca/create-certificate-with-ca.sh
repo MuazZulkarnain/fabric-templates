@@ -24,10 +24,10 @@ createCretificateForPi5() {
     OrganizationalUnitIdentifier: orderer' >${PWD}/../crypto-config/ordererOrganizations/pi5/msp/config.yaml
 
   echo
-  echo "Register orderer"
+  echo "Register orderer1"
   echo
 
-  fabric-ca-client register --caname ca.pi5 --id.name orderer --id.secret ordererpw --id.type orderer --tls.certfiles ${PWD}/fabric-ca/pi5/tls-cert.pem
+  fabric-ca-client register --caname ca.pi5 --id.name orderer1 --id.secret ordererpw --id.type orderer --tls.certfiles ${PWD}/fabric-ca/pi5/tls-cert.pem
 
   echo
   echo "Register orderer2"
@@ -51,33 +51,33 @@ createCretificateForPi5() {
   # mkdir -p ../crypto-config/ordererOrganizations/pi5/orderers/pi5
 
   # ---------------------------------------------------------------------------
-  #  Pi5
+  #  Pi5 1
 
-  mkdir -p ../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5
-
-  echo
-  echo "## Generate the orderer msp"
-  echo
-
-  fabric-ca-client enroll -u https://orderer:ordererpw@localhost:9054 --caname ca.pi5 -M ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/msp --csr.hosts orderer.pi5 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/pi5/tls-cert.pem
-
-  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/msp/config.yaml ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/msp/config.yaml
+  mkdir -p ../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5
 
   echo
-  echo "## Generate the orderer-tls certificates"
+  echo "## Generate the orderer1 msp"
   echo
 
-  fabric-ca-client enroll -u https://orderer:ordererpw@localhost:9054 --caname ca.pi5 -M ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls --enrollment.profile tls --csr.hosts orderer.pi5 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/pi5/tls-cert.pem
+  fabric-ca-client enroll -u https://orderer1:ordererpw@localhost:9054 --caname ca.pi5 -M ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/msp --csr.hosts orderer1.pi5 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/pi5/tls-cert.pem
 
-  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/tlscacerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/ca.crt
-  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/signcerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/server.crt
-  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/keystore/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/server.key
+  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/msp/config.yaml ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/msp/config.yaml
 
-  mkdir ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/msp/tlscacerts
-  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/tlscacerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/msp/tlscacerts/tlsca.pi5-cert.pem
+  echo
+  echo "## Generate the orderer1-tls certificates"
+  echo
+
+  fabric-ca-client enroll -u https://orderer1:ordererpw@localhost:9054 --caname ca.pi5 -M ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls --enrollment.profile tls --csr.hosts orderer1.pi5 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/pi5/tls-cert.pem
+
+  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/tlscacerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/ca.crt
+  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/signcerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/server.crt
+  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/keystore/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/server.key
+
+  mkdir ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/msp/tlscacerts
+  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/tlscacerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/msp/tlscacerts/tlsca.pi5-cert.pem
 
   mkdir ${PWD}/../crypto-config/ordererOrganizations/pi5/msp/tlscacerts
-  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer.pi5/tls/tlscacerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/msp/tlscacerts/tlsca.pi5-cert.pem
+  cp ${PWD}/../crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/tlscacerts/* ${PWD}/../crypto-config/ordererOrganizations/pi5/msp/tlscacerts/tlsca.pi5-cert.pem
 
   # -----------------------------------------------------------------------
   #  Pi5 2

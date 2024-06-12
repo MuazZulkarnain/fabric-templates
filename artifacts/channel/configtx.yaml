@@ -1,25 +1,25 @@
 Organizations:
-  - &OrdererOrg
-    Name: OrdererOrg
-    ID: OrdererMSP
-    MSPDir: ../../setup1/Pi 4/crypto-config/ordererOrganizations/pi4/msp
+  - &Pi5
+    Name: Pi5
+    ID: Pi5MSP
+    MSPDir: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/msp
 
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('Pi4MSP.member')"
+        Rule: "OR('Pi5MSP.member')"
       Writers:
         Type: Signature
-        Rule: "OR('Pi4MSP.member')"
+        Rule: "OR('Pi5MSP.member')"
       Admins:
         Type: Signature
-        Rule: "OR('Pi4MSP.admin')"
+        Rule: "OR('Pi5MSP.admin')"
 
-  - &Org1
+  - &Laptop1
     Name: Laptop1MSP
     ID: Laptop1MSP
 
-    MSPDir: ../../setup1/Laptop 1/crypto-config/peerOrganizations/laptop1/msp
+    MSPDir: ../../setup1/Laptop1/crypto-config/peerOrganizations/laptop1/msp
 
     Policies:
       Readers:
@@ -39,12 +39,12 @@ Organizations:
       - Host: endorser1_laptop1
         Port: 7051
 
-  - &Org2
+  - &Laptop2
     Name: Laptop2MSP
 
     ID: Laptop2MSP
 
-    MSPDir: ../../setup1/Laptop 2/crypto-config/peerOrganizations/laptop2/msp
+    MSPDir: ../../setup1/Laptop2/crypto-config/peerOrganizations/laptop2/msp
 
     Policies:
       Readers:
@@ -64,12 +64,12 @@ Organizations:
       - Host: endorser1_laptop2
         Port: 9051
 
-  - &Org3
+  - &Pi4
     Name: Pi4MSP
 
     ID: Pi4MSP
 
-    MSPDir: ../../setup1/Pi 4/crypto-config/peerOrganizations/pi4/msp
+    MSPDir: ../../setup1/Pi4/crypto-config/peerOrganizations/pi4/msp
 
     Policies:
       Readers:
@@ -127,12 +127,12 @@ Orderer: &OrdererDefaults
 
   EtcdRaft:
     Consenters:
-      - Host: orderer.example.com
+      - Host: orderer1.pi5
         Port: 7050
-        ClientTLSCert: ../../setup1/Pi 4/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-        ServerTLSCert: ../../setup1/Pi 4/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+        ClientTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/server.crt
+        ServerTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/server.crt
   Addresses:
-    - orderer.example.com:7050
+    - orderer1.pi5:7050
 
   BatchTimeout: 2s
   BatchSize:
@@ -193,30 +193,30 @@ Profiles:
       OrdererType: etcdraft
       EtcdRaft:
         Consenters:
-          - Host: orderer.example.com
+          - Host: orderer1.pi5
             Port: 7050
-            ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-            ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-          - Host: orderer2.example.com
+            ClientTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/server.crt
+            ServerTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer1.pi5/tls/server.crt
+          - Host: orderer2.pi5
             Port: 8050
-            ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
-            ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
-          - Host: orderer3.example.com
+            ClientTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer2.pi5/tls/server.crt
+            ServerTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer2.pi5/tls/server.crt
+          - Host: orderer3.pi5
             Port: 9050
-            ClientTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
-            ServerTLSCert: ../../setup1/vm4/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
+            ClientTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer3.pi5/tls/server.crt
+            ServerTLSCert: ../../setup1/Pi5/crypto-config/ordererOrganizations/pi5/orderers/orderer3.pi5/tls/server.crt
       Addresses:
-        - orderer.example.com:7050
-        - orderer2.example.com:8050
-        - orderer3.example.com:9050
+        - orderer1.pi5:7050
+        - orderer2.pi5:8050
+        - orderer3.pi5:9050
 
       Organizations:
-        - *OrdererOrg
+        - *Pi5
       Capabilities:
         <<: *OrdererCapabilities
     Consortiums:
       SampleConsortium:
         Organizations:
-          - *Org1
-          - *Org2
-          - *Org3
+          - *Laptop1
+          - *Laptop2
+          - *Pi4
