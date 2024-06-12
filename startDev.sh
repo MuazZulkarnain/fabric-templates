@@ -76,14 +76,16 @@ echo
 echo '########## show all running containers ##########'
 docker ps
 
-# echo '########## bootstrap the blockchain, creating genesis block and anchor peers ##########'
-# cd ../artifacts/channel
-# rm genesis.block
-# rm mainchannel.tx
-# rm Org1MSPanchors.tx
-# rm Org2MSPanchors.tx
-# rm Org3MSPanchors.tx
-# ./create-artifacts.sh
+echo
+echo
+echo '########## bootstrap the blockchain, creating genesis block and anchor peers ##########'
+cd ../artifacts/channel
+rm genesis.block
+rm mainchannel.tx
+rm Laptop1MSPanchors.tx
+rm Laptop2MSPanchors.tx
+rm Pi4MSPanchors.tx
+./create-artifacts.sh
 
 # echo '########## running all peer and orderer containers ##########'
 # cd ../../setup1/Laptop1
