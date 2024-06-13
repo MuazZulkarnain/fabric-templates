@@ -90,16 +90,23 @@ rm Pi4MSPanchors.tx
 echo
 echo
 echo '########## running Laptop 1 nodes ##########'
+sleep 2s
 cd ../../setup1/Laptop1
 docker-compose up -d
+sleep 2s
+
+echo
+echo
+echo '########## running Laptop 2 nodes ##########'
+sleep 2s
+cd ../Laptop2
+docker-compose up -d
+sleep 2s
 
 echo
 echo
 echo '########## show all running containers ##########'
 docker ps
-
-# cd ../Laptop\ 2
-# docker-compose up -d
 
 # cd ../Pi\ 4
 # docker-compose up -d

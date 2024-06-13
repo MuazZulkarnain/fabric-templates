@@ -24,16 +24,16 @@ createCertificateForLaptop2() {
     OrganizationalUnitIdentifier: orderer' >${PWD}/../crypto-config/peerOrganizations/laptop2/msp/config.yaml
 
   echo
-  echo "Register peer0"
+  echo "Register endorser1"
   echo
 
-  fabric-ca-client register --caname ca.laptop2 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
+  fabric-ca-client register --caname ca.laptop2 --id.name endorser1 --id.secret endorser1pw --id.type peer --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
   echo
-  echo "Register peer1"
+  echo "Register endorser2"
   echo
 
-  fabric-ca-client register --caname ca.laptop2 --id.name peer1 --id.secret peer1pw --id.type peer --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
+  fabric-ca-client register --caname ca.laptop2 --id.name endorser2 --id.secret endorser2pw --id.type peer --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
   echo
   echo "Register user"
@@ -48,56 +48,56 @@ createCertificateForLaptop2() {
   fabric-ca-client register --caname ca.laptop2 --id.name laptop2admin --id.secret laptop2adminpw --id.type admin --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
   mkdir -p ../crypto-config/peerOrganizations/laptop2/peers
-  mkdir -p ../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2
+  mkdir -p ../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2
 
   # --------------------------------------------------------------
   # Peer 0
   echo
-  echo "## Generate the peer0 msp"
+  echo "## Generate the endorser1 msp"
   echo
 
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/msp --csr.hosts peer0.laptop2 --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
+  fabric-ca-client enroll -u https://endorser1:endorser1pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/msp --csr.hosts endorser1.laptop2 --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/msp/config.yaml
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/msp/config.yaml
 
   echo
-  echo "## Generate the peer0-tls certificates"
+  echo "## Generate the endorser1-tls certificates"
   echo
 
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls --enrollment.profile tls --csr.hosts peer0.laptop2 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
+  fabric-ca-client enroll -u https://endorser1:endorser1pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls --enrollment.profile tls --csr.hosts endorser1.laptop2 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/ca.crt
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/signcerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/server.crt
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/keystore/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/server.key
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/ca.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/signcerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/server.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/keystore/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/server.key
 
   mkdir ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/tlscacerts
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/tlscacerts/ca.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/tlscacerts/ca.crt
 
   mkdir ${PWD}/../crypto-config/peerOrganizations/laptop2/tlsca
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/tlsca/tlsca.laptop2-cert.pem
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/tlsca/tlsca.laptop2-cert.pem
 
   mkdir ${PWD}/../crypto-config/peerOrganizations/laptop2/ca
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer0.laptop2/msp/cacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/ca/ca.laptop2-cert.pem
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser1.laptop2/msp/cacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/ca/ca.laptop2-cert.pem
 
   # --------------------------------------------------------------------------------
   #  Peer 1
   echo
-  echo "## Generate the peer1 msp"
+  echo "## Generate the endorser2 msp"
   echo
 
-  fabric-ca-client enroll -u https://peer1:peer1pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/msp --csr.hosts peer1.laptop2 --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
+  fabric-ca-client enroll -u https://endorser2:endorser2pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/msp --csr.hosts endorser2.laptop2 --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/msp/config.yaml
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/msp/config.yaml
 
   echo
-  echo "## Generate the peer1-tls certificates"
+  echo "## Generate the endorser2-tls certificates"
   echo
 
-  fabric-ca-client enroll -u https://peer1:peer1pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls --enrollment.profile tls --csr.hosts peer1.laptop2 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
+  fabric-ca-client enroll -u https://endorser2:endorser2pw@localhost:8054 --caname ca.laptop2 -M ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls --enrollment.profile tls --csr.hosts endorser2.laptop2 --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/laptop2/tls-cert.pem
 
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls/ca.crt
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls/signcerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls/server.crt
-  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls/keystore/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/peer1.laptop2/tls/server.key
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls/ca.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls/signcerts/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls/server.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls/keystore/* ${PWD}/../crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls/server.key
   # -----------------------------------------------------------------------------------
 
   mkdir -p ../crypto-config/peerOrganizations/laptop2/users
