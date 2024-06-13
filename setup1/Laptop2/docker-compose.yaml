@@ -45,7 +45,7 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=endorser1.laptop2:9051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=endorser2.laptop1:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=endorser2.laptop2:10051
 
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.endorser1.laptop2:5984
@@ -68,8 +68,8 @@ services:
     networks:
       - mainchannel
 
-  endorser2.laptop1:
-    container_name: endorser2.laptop1
+  endorser2.laptop2:
+    container_name: endorser2.laptop2
     extends:
       file: base.yaml
       service: peer-base
@@ -80,13 +80,13 @@ services:
 
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iot-cc-net
 
-      - CORE_PEER_ID=endorser2.laptop1
-      - CORE_PEER_ADDRESS=endorser2.laptop1:10051
+      - CORE_PEER_ID=endorser2.laptop2
+      - CORE_PEER_ADDRESS=endorser2.laptop2:10051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
-      - CORE_PEER_CHAINCODEADDRESS=endorser2.laptop1:10052
+      - CORE_PEER_CHAINCODEADDRESS=endorser2.laptop2:10052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=endorser2.laptop1:10051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=endorser1.laptop2:10051
       - CORE_PEER_GOSSIP_BOOTSTRAP=endorser1.laptop2:9051
 
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
@@ -103,8 +103,8 @@ services:
     ports:
       - 10051:10051
     volumes:
-      - ./crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop1/msp:/etc/hyperledger/crypto/peer/msp
-      - ./crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop1/tls:/etc/hyperledger/crypto/peer/tls
+      - ./crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/msp:/etc/hyperledger/crypto/peer/msp
+      - ./crypto-config/peerOrganizations/laptop2/peers/endorser2.laptop2/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       - ./:/etc/hyperledger/channel/
     networks:
