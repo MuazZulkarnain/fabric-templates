@@ -87,9 +87,16 @@ rm Laptop2MSPanchors.tx
 rm Pi4MSPanchors.tx
 ./create-artifacts.sh
 
-# echo '########## running all peer and orderer containers ##########'
-# cd ../../setup1/Laptop1
-# docker-compose up -d
+echo
+echo
+echo '########## running Laptop 1 nodes ##########'
+cd ../../setup1/Laptop1
+docker-compose up -d
+
+echo
+echo
+echo '########## show all running containers ##########'
+docker ps
 
 # cd ../Laptop\ 2
 # docker-compose up -d

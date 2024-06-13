@@ -1,11 +1,11 @@
-setup1/Laptop1/create-certificate-with-ca/fabric-ca
-setup1/Laptop1/crypto-config
+!*setup1/Laptop1/create-certificate-with-ca/fabric-ca
+!*setup1/Laptop1/crypto-config
 
-setup1/Laptop2/create-certificate-with-ca/fabric-ca
-setup1/Laptop2/crypto-config
+!*setup1/Laptop2/create-certificate-with-ca/fabric-ca
+!*setup1/Laptop2/crypto-config
 
-setup1/Pi4/create-certificate-with-ca/fabric-ca
-setup1/Pi4/crypto-config
+!*setup1/Pi4/create-certificate-with-ca/fabric-ca
+!*setup1/Pi4/crypto-config
 
-setup1/Pi5/create-certificate-with-ca/fabric-ca
-setup1/Pi5/crypto-config
+!*setup1/Pi5/create-certificate-with-ca/fabric-ca
+!*setup1/Pi5/crypto-config
