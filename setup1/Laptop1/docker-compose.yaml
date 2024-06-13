@@ -44,7 +44,7 @@ services:
       - CORE_PEER_CHAINCODEADDRESS=endorser1.laptop1:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      - CORE_PEER_GOSSIP_BOOTSTRAP=endorser1.laptop1:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=endorser2.laptop1:8051
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=endorser1.laptop1:7051
 
