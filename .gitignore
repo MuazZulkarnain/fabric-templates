@@ -9,3 +9,21 @@
 
 !*setup1/Pi5/create-certificate-with-ca/fabric-ca
 !*setup1/Pi5/crypto-config
+
+setup1/Laptop1/api-2.0/.dockerignoreZone.Identifier
+
+setup1/Laptop1/create-certificate-with-ca/fabric-ca/laptop1/msp/keystore/ab9c80bbeddaf60fc2185845453cd86fe5a982a03c7541d7d1ded455d3f438ad_sk
+
+setup1/Laptop1/create-certificate-with-ca/fabric-ca/laptop1/msp/keystore/b744810afcec13815b47ff4a2e6bb4437b00035dd291c34486f0baf2ad904cab_sk
+
+setup1/Laptop2/create-certificate-with-ca/fabric-ca/laptop2/msp/keystore/6b2b84909007fe91c864eebdeda270770f08aed94cd79efb6f224a24acef7b56_sk
+
+setup1/Laptop2/create-certificate-with-ca/fabric-ca/laptop2/msp/keystore/93500f4317dbe8798346e538e892bc0ba53ffb64e4e4ea82f5fed978641f4c2c_sk
+
+setup1/Pi4/create-certificate-with-ca/fabric-ca/pi4/msp/keystore/92d5ff43c9915edede2051ffc6401347699d69cab3cd3def42f87e352e1d372a_sk
+
+setup1/Pi4/create-certificate-with-ca/fabric-ca/pi4/msp/keystore/40881982925355e27ba70dfc51bb34ae4701a3c9121393f12d265dcad9d51477_sk
+
+setup1/Pi5/create-certificate-with-ca/fabric-ca/pi5/msp/keystore/cb07d2201367771b1d74770072c2c7968f69e98050d859ef5ed468cf6ab54b86_sk
+
+setup1/Pi5/create-certificate-with-ca/fabric-ca/pi5/msp/keystore/e050134b7e1f8fd3a1bd26e5da65b85e7196ba3509ba739d07046077d053e66e_sk
