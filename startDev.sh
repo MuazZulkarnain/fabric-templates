@@ -92,6 +92,7 @@ echo
 echo '########## running Laptop 1 nodes ##########'
 sleep 2s
 cd ../../setup1/Laptop1
+sudo chmod 777 *
 docker-compose up -d
 sleep 2s
 
@@ -100,6 +101,7 @@ echo
 echo '########## running Laptop 2 nodes ##########'
 sleep 2s
 cd ../Laptop2
+sudo chmod 777 *
 docker-compose up -d
 sleep 2s
 

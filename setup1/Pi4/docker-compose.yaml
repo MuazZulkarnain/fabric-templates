@@ -1,32 +1,11 @@
 version: "2.4"
 
 networks:
-  test:
+  mainchannel:
 
 services:
-  # ca-org3:
-  #   image: hyperledger/fabric-ca
-  #   environment:
-  #     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-  #     - FABRIC_CA_SERVER_CA_NAME=ca.org3.example.com
-  #     - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org3.example.com-cert.pem
-  #     - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/priv_sk
-  #     - FABRIC_CA_SERVER_TLS_ENABLED=true
-  #     - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-tls/tlsca.org3.example.com-cert.pem
-  #     - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-tls/priv_sk
-  #   ports:
-  #     - "9054:7054"
-  #   command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
-  #   volumes:
-  #     - ../../artifacts/channel/crypto-config/peerOrganizations/org3.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
-  #     - ../../artifacts/channel/crypto-config/peerOrganizations/org3.example.com/tlsca/:/etc/hyperledger/fabric-ca-server-tls
-  #   container_name: ca.org3.example.com
-  #   hostname: ca.org3.example.com
-  #   networks:
-  #     - test
-
-  couchdb4:
-    container_name: couchdb4
+  couchdb.endorser1.pi4:
+    container_name: couchdb.endorser1.pi4
     image: hyperledger/fabric-couchdb
     environment:
       - COUCHDB_USER=
@@ -34,10 +13,10 @@ services:
     ports:
       - 9984:5984
     networks:
-      - test
+      - mainchannel
 
-  couchdb5:
-    container_name: couchdb5
+  couchdb.endorser2.pi4:
+    container_name: couchdb.endorser2.pi4
     image: hyperledger/fabric-couchdb
     environment:
       - COUCHDB_USER=
@@ -45,34 +24,34 @@ services:
     ports:
       - 10984:5984
     networks:
-      - test
+      - mainchannel
 
-  peer0.org3.example.com:
-    container_name: peer0.org3.example.com
+  endorser1.pi4:
+    container_name: endorser1.pi4
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=DEBUG
       - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=Org3MSP
+      - CORE_PEER_LOCALMSPID=Pi4MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iot-cc-net
 
-      - CORE_PEER_ID=peer0.org3.example.com
-      - CORE_PEER_ADDRESS=peer0.org3.example.com:11051
+      - CORE_PEER_ID=endorser1.pi4
+      - CORE_PEER_ADDRESS=endorser1.pi4:11051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
-      # - CORE_PEER_CHAINCODEADDRESS=peer0.org3.example.com:7052
+      # - CORE_PEER_CHAINCODEADDRESS=endorser1.pi4:7052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org3.example.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=endorser2.pi4:12051
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.example.com:11051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=endorser1.pi4:11051
 
       # - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9440
 
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.endorser1.pi4:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
       - CORE_METRICS_PROVIDER=prometheus
@@ -82,40 +61,40 @@ services:
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
     depends_on:
-      - couchdb4
+      - couchdb.endorser1.pi4
     ports:
       - 11051:11051
     volumes:
-      - ./crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp:/etc/hyperledger/crypto/peer/msp
-      - ./crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls:/etc/hyperledger/crypto/peer/tls
+      - ./crypto-config/peerOrganizations/pi4/peers/endorser1.pi4/msp:/etc/hyperledger/crypto/peer/msp
+      - ./crypto-config/peerOrganizations/pi4/peers/endorser1.pi4/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       - ./:/etc/hyperledger/channel/
     networks:
-      - test
+      - mainchannel
 
-  peer1.org3.example.com:
-    container_name: peer1.org3.example.com
+  endorser2.pi4:
+    container_name: endorser2.pi4
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=DEBUG
       - ORDERER_GENERAL_LOGLEVEL=debug
-      - CORE_PEER_LOCALMSPID=Org3MSP
+      - CORE_PEER_LOCALMSPID=Pi4MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=iot-cc-net
 
-      - CORE_PEER_ID=peer1.org3.example.com
-      - CORE_PEER_ADDRESS=peer1.org3.example.com:12051
+      - CORE_PEER_ID=endorser2.pi4
+      - CORE_PEER_ADDRESS=endorser2.pi4:12051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
       # - CORE_PEER_CHAINCODEADDRESS=peer1.org1.example.com:8052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org3.example.com:12051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org3.example.com:12051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=endorser2.pi4:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=endorser1.pi4:12051
 
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.endorser2.pi4:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
       - CORE_PEER_TLS_ENABLED=true
@@ -126,9 +105,9 @@ services:
     ports:
       - 12051:12051
     volumes:
-      - ./crypto-config/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/msp:/etc/hyperledger/crypto/peer/msp
-      - ./crypto-config/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/tls:/etc/hyperledger/crypto/peer/tls
+      - ./crypto-config/peerOrganizations/pi4/peers/endorser2.pi4/msp:/etc/hyperledger/crypto/peer/msp
+      - ./crypto-config/peerOrganizations/pi4/peers/endorser2.pi4/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       - ./:/etc/hyperledger/channel/
     networks:
-      - test
+      - mainchannel
