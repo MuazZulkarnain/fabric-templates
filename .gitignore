@@ -27,3 +27,11 @@ setup1/Pi4/create-certificate-with-ca/fabric-ca/pi4/msp/keystore/40881982925355e
 setup1/Pi5/create-certificate-with-ca/fabric-ca/pi5/msp/keystore/cb07d2201367771b1d74770072c2c7968f69e98050d859ef5ed468cf6ab54b86_sk
 
 setup1/Pi5/create-certificate-with-ca/fabric-ca/pi5/msp/keystore/e050134b7e1f8fd3a1bd26e5da65b85e7196ba3509ba739d07046077d053e66e_sk
+setup1/Laptop1/create-certificate-with-ca/fabric-ca/laptop1/msp/keystore/6c7239211adf7164d3547047dc23e39328b7bb3b929e8a89e4f2104ec24ba501_sk
+setup1/Laptop1/create-certificate-with-ca/fabric-ca/laptop1/msp/keystore/7cb0fca62322417f52ffe94d6e1e9bed12eb6eacc791f64ac597b57e8687540a_sk
+setup1/Laptop2/create-certificate-with-ca/fabric-ca/laptop2/msp/keystore/7aca23fa720fe955efe42452d7d980eda1583713de2d9f4a5774aa5a920c87bf_sk
+setup1/Laptop2/create-certificate-with-ca/fabric-ca/laptop2/msp/keystore/911f6d7c3d0c90c07de5f54f42320be3cf8c367420fc21a0afc7b80963a2b50f_sk
+setup1/Pi4/create-certificate-with-ca/fabric-ca/pi4/msp/keystore/3ccb10b4eef4248db456ef01a3dbbaeec39da4404dd46d968f40ee9509680656_sk
+setup1/Pi4/create-certificate-with-ca/fabric-ca/pi4/msp/keystore/6299949d09289b49341b27d922c82eff31c17f1b3a063d94d2404b828981e913_sk
+setup1/Pi5/create-certificate-with-ca/fabric-ca/pi5/msp/keystore/c3d740d6508baa0adad5f133acb7dca4c4ec1a0e2d170f6cc5702cd93136a55f_sk
+setup1/Pi5/create-certificate-with-ca/fabric-ca/pi5/msp/keystore/fc2c165536ee83aed79751676b2ad349c0be463f980df91425ed525d9871a191_sk
